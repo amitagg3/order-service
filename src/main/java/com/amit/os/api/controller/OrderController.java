@@ -1,8 +1,7 @@
 package com.amit.os.api.controller;
 
-import com.amit.os.api.common.Payment;
 import com.amit.os.api.common.TransactionRequest;
-import com.amit.os.api.entity.Order;
+import com.amit.os.api.common.TransactionResponse;
 import com.amit.os.api.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,13 +16,9 @@ public class OrderController {
     private OrderService orderService;
 
     @PostMapping("/bookOrder")
-    public Order bookOrder(@RequestBody TransactionRequest
-                                       request){
-        Order order=request.getOrder();
-        Payment payment=request.getPayment();
-        payment.setOrderId(order.getId());
-        payment.setAmount(order.getPrice());
-        return orderService.saveOrder(order);
+    public TransactionResponse bookOrder(@RequestBody TransactionRequest request) {
+
+        return orderService.saveOrder(request);
         //do a rest call to payment and pass the order id
     }
 }
